@@ -243,6 +243,112 @@
             
               
                 
+                <a class="post-title-link" href="/2017/08/01/加法操作表/" itemprop="url">
+                  加法操作表
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2017-08-01T17:13:47+08:00" content="2017-08-01">
+              2017-08-01
+            </time>
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2017/08/01/加法操作表/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/08/01/加法操作表/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="下面给出一个加法操作表"><a href="#下面给出一个加法操作表" class="headerlink" title="下面给出一个加法操作表"></a>下面给出一个加法操作表</h3><pre><code>Number + Number -&gt; 加法
+Boolean + Number -&gt; 加法
+Boolean + Boolean -&gt; 加法
+Number + String -&gt; 连接
+String + Boolean -&gt; 连接
+String + String -&gt; 连接
+</code></pre>
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2016/08/16/querySelector/" itemprop="url">
                   querySelector和querySelectorAll的一个小例子
                 </a>
@@ -293,8 +399,7 @@
 
       
         
-          
-            <h3 id="它的定义和用法"><a href="#它的定义和用法" class="headerlink" title="它的定义和用法"></a>它的定义和用法</h3><p> querySelector() 方法返回文档中匹配指定 CSS 选择器的一个元素。</p>
+          <h3 id="它的定义和用法"><a href="#它的定义和用法" class="headerlink" title="它的定义和用法"></a>它的定义和用法</h3><p> querySelector() 方法返回文档中匹配指定 CSS 选择器的一个元素。</p>
 <p>注意： querySelector() 方法仅仅返回匹配指定选择器的第一个元素。如果你需要返回所有的元素，请使用 querySelectorAll() 方法替代。</p>
 <p>差不多就是相当于取单数和复数。下面来看这个例子：</p>
 <pre><code>&lt;img id=&quot;outside&quot;&gt;
@@ -306,34 +411,11 @@
     &lt;/div&gt;
 &lt;/div&gt;
 </code></pre><p>大家看下下面2行简单的查询语句：</p>
-<pre><code>document.querySelectorAll(&quot;#my-id div div&quot;);
-document.querySelector(&quot;#my-id&quot;).querySelectorAll(&quot;div div&quot;);
-</code></pre><p>提问：上面两个语句返回的NodeList的内容是否是一样的？</p>
-<p>很多人一眼看去，感觉好像是一样的，定睛一看，才会发现写得有些区别，那么这时候很多人马上就会觉得是不一样的了。</p>
-<p>但是，很遗憾的是，他们猜中了，没错：</p>
-<pre><code>document.querySelectorAll(&quot;#my-id div div&quot;).length === 1;
-document.querySelector(&quot;#my-id&quot;).querySelectorAll(&quot;div div&quot;).length === 3;
-</code></pre><p>为什么是这样呢，要解释NodeList的长度为什么是3，只要一句话就够了，我特意加粗了：</p>
-<p><strong>CSS选择器是独立于整个页面的！</strong></p>
-<p>什么意思呢？比如说你在页面很深的一个DOM里面写上：</p>
-<pre><code>`&lt;style&gt;`
-div div { }
-&lt;/style&gt;
-</code></pre><p>整个网页，包括父级，只要是满足div div父子关系的元素，全部会被选中，对吧，这个大家应该都清楚的。</p>
-<p>这里的querySelectorAll里面的选择器也同样是这也全局特性。document.querySelector(“#my-id”).querySelectorAll(“div div”)翻译成白话文就是：查询#my-id的子元素，同时满足整个页面下div div选择器条件的DOM元素们。</p>
-<p>我们页面往上滚动看看原始的HTML结构，会发现，在全局视野下，div.lonely, div.outer, div.inner全部都满足div div这个选择器条件，于是，最终返回的长度为3.</p>
-<h3 id="拓展"><a href="#拓展" class="headerlink" title="拓展"></a>拓展</h3><p>正文到上面就结束了，记录一下我上次看到的一段代码。</p>
-<pre><code>window.$ = HTMLElement.prototype.$ = function(selector) {
-
-    var elems = (this == window ? document : this).querySelectorAll(selector);
-
-            return elems == null ? null : elems.length == 1 ? elems[0] : elems;
-}
-</code></pre><p>当我第一次看到上面这段代码的时候，其实我是懵逼的，因为我根本看不懂它想表达什么，于是我往下看别人的回复。</p>
-<p>别人的回答：window.$=  …的意思是添加一个全局变量’$”;<br>HTMLElement.prototype.$是在原型继承中添加一个$属性；<br>后面的这个function（匿名函数）将来就是$的值。也就是你将来写”$(“#id”)的意思就是就是: function(“#id”)。<br>就是调用这个function 。<br>这个function里面就是在调用js的querySelectorAll方法。无非是判断先是document.querySelectorAll还是dom.querySelectorAll。<br>后面返回值是说如果查询出来是null则返回null，如果是一个dom，则返回这一个，如果是多个，则返回dom数组。</p>
-<p>我一看完就豁然开朗，果然是高手，解释的非常清楚，这难道就是一个小小的封装，那JQuery的$符号也是这样来的吗？我瞬间就明白了，</p>
-
-          
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/08/16/querySelector/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
         
       
     </div>
@@ -986,7 +1068,7 @@ div div { }
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">6</span>
+              <span class="site-state-item-count">7</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -1040,7 +1122,7 @@ div div { }
         <div class="copyright" >
   
   &copy; 
-  <span itemprop="copyrightYear">2016</span>
+  <span itemprop="copyrightYear">2017</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
