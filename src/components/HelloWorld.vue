@@ -4,7 +4,7 @@
 		<form>
 			<el-input v-model="name" placeholder="名称" style="width:200px"></el-input>
 			<el-input v-model="price" placeholder="价格" style="width:200px"></el-input>
-			<el-button type="primary" @click="addUser">提交</el-button>
+			<el-button type="primary" @click="addUser">提交1</el-button>
 		</form>
 	</div>
 </template>
