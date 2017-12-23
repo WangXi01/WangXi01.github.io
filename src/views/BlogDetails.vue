@@ -69,6 +69,7 @@
                     this.content = res.data[0].content;
                     this.create_time = res.data[0].create_time;
                	}).catch(err=>{
+               		this.$message.error('网络异常!');
                		this.err = true;
                	})
 			}

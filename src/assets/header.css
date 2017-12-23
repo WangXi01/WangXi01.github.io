@@ -7,6 +7,7 @@ a{text-decoration: none;}
 .el-main{min-height: 600px;}
 .text-left{text-align: left;}
 .text-right{text-align: right;}
+.pull-right{float: right;}
 textarea{min-height: 200px;}
 .el-alert{line-height: 15px;}
 .ql-editor{min-height: 200px;}

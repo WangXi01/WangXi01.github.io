@@ -1,6 +1,6 @@
 # my-vue
 
-> since 2017.12.14
+> since 2017.12.14 个人博客
 
 ## Build Setup
 

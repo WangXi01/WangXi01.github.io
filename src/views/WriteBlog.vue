@@ -117,8 +117,9 @@
 						this.success = false;
 						this.successMsg = true;
 					}
-				}).catch(function(error) {
-					console.log(error);
+				}).catch(err => {
+					this.$message.error('网络异常!');
+					console.log(err);
 				});
 			},
 			showWrite() {

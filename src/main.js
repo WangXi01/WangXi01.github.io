@@ -8,6 +8,7 @@ import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 import 'element-ui/lib/theme-chalk/display.css';
 import '@/assets/header.css'
+import '@/assets/media.css'
 import axios from 'axios'
 import VueQuillEditor from 'vue-quill-editor'
 // require styles
@@ -15,18 +16,17 @@ import 'quill/dist/quill.core.css'
 import 'quill/dist/quill.snow.css'
 import 'quill/dist/quill.bubble.css'
 
-
-
-
 Vue.config.productionTip = false
-Vue.use(VueQuillEditor, /* { default global options } */)
+Vue.use(VueQuillEditor, /* { default global options } */ )
 Vue.prototype.$http = axios
 Vue.use(ElementUI)
 /* eslint-disable no-new */
 new Vue({
- el: '#app',
- router,
-// template: '<App/>',
-   components: { App },
- render:h => h(App)
+	el: '#app',
+	router,
+	// template: '<App/>',
+	components: {
+		App
+	},
+	render: h => h(App),
 })

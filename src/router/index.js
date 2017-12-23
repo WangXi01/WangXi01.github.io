@@ -4,6 +4,7 @@ import Router from 'vue-router'
 import Home from '@/views/Home'
 import WriteBlog from '@/views/WriteBlog'
 import BlogDetails from '@/views/BlogDetails'
+import Login from '@/views/Login'
 
 Vue.use(Router)
 
@@ -27,6 +28,11 @@ export default new Router({
 			path:'/titles/:id',
 			name: 'BlogDetails',
 			component: BlogDetails
+		},
+		{
+			path: '/login',
+			name: 'login',
+			component: Login
 		},
 	]
 })

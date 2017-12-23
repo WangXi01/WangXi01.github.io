@@ -21,7 +21,7 @@ var jsonWrite = function(res, ret) {
 
 // 增加用户接口
 router.post('/writeBlog', (req, res) => {
-	var sql = $sql.user.add;
+	var sql = $sql.title.add;
 	var params = req.body;
 	params.dynamicTags = params.dynamicTags.toString();
 	conn.query(sql, [params.name, params.dynamicTags,params.desc,params.createTime], function(err, result) {
@@ -34,9 +34,21 @@ router.post('/writeBlog', (req, res) => {
 	})
 });
 
+router.post('/login',(req,res)=>{
+	var sql = `SELECT * FROM user WHERE name='${req.body.name}'`;
+	conn.query(sql, function(err, result) {
+		if(err) {
+			console.log(err);
+		}
+		if(result) {
+			jsonWrite(res, result);
+		}
+	})
+})
+
 // 增加用户接口
 router.get('/title', (req, res) => {
-	var sql = $sql.user.select;
+	var sql = $sql.title.select;
 	conn.query(sql, function(err, result) {
 		if(err) {
 			console.log(err);
