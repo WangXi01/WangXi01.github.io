@@ -10,7 +10,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded());
 
 //注册api路由
-app.use('/api/user', userApi);
+app.use('/', userApi);
 
 // 监听端口
 app.listen(3000);
