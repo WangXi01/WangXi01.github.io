@@ -21,14 +21,15 @@
 			</el-col>
 			<el-col :xs="8" :sm="6" :md="6">
 				<div class="grid-content bg-purple">
-					<div>
+					<div v-show = '!name'>
 						<el-button type="primary">
 							<router-link to='/login' style='color: #fff;'>登录</router-link>
 						</el-button>
 						<el-button type="success">注册</el-button>
 					</div>
-					<div>
-						
+					<div v-show = 'name'>
+						<el-tag class='login_dre'>欢迎您！{{name}}</el-tag>
+						<el-button type="success" @click='clearCookie'>退出</el-button>
 					</div>
 				</div>
 			</el-col>
@@ -42,10 +43,11 @@
 		data() {
 			return {
 				activeIndex: '1',
+				name:'',
 			}
 		},
 		created: function () {
-        	this.checkCookie();
+//      	this.checkCookie();
 	    },
 		mounted: function() {
 			this.$nextTick(function() {
@@ -60,6 +62,27 @@
 				}else if(router_path=='/writeBlog'){
 					this.activeIndex = '3';
 				}
+				//验证登录状态
+				this.$http.get('/home').then(res=>{
+					if(res.data.name){
+						this.name = res.data.name;
+						this.$notify({
+				          title: '欢迎！',
+				          message: '你好' + res.data.name + '，欢迎第' + res.data.count + '次来到我的博客。',
+				          type: 'success',
+				          offset: 70,
+				        });
+					}else{
+						this.$notify.error({
+				          title: '错误',
+				          message: res.data,
+				          offset: 70,
+				        });
+					}
+					
+				}).catch(err=>{
+					console.log(err)
+				})
 			},
 			//设置cookie
 	        setCookie: function (cname, cvalue, exdays) {
@@ -84,21 +107,29 @@
 	        //清除cookie
 	        clearCookie: function () {
 	            this.setCookie("username", "", -1);
-	
+				this.checkCookie()
 	        },
 	        checkCookie: function () {
 	            var user = this.getCookie("username");
-	            if (user != "") {
-	                alert("Welcome again " + user);
-	            } else {
-	            	this.$router.push('login')
-//	                user = prompt("Please enter your name:", "");
-//	                if (user != "" && user != null) {
-//	                    this.setCookie("username", user, 365);
-//	                }
+	            if (user == "") {
+	            	this.$http.post('/loginOut').then(res=>{
+	            		if(res.data.code == 200){
+	            			this.$message(res.data.msg)
+	            			this.$router.push('login')
+	            		}
+	            	})
 	            }
 	        }
 		},
 		
 	}
 </script>
+
+<style>
+	.login_dre{
+	    padding: 4px 10px;
+	    display: inline-block;
+	    height: 40px;
+	    line-height: 30px;
+	}
+</style>

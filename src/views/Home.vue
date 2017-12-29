@@ -34,7 +34,7 @@
 			HomeAside,
 			HomeContent,
 			HomeFooter,  
-		}
+		},
 	}
 </script>
 

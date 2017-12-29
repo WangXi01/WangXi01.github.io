@@ -12,7 +12,7 @@
 				<el-button type="primary" @click="onSubmit"><span>立即登录</span></el-button>
 				<div class="pull-right">
 					<span>没有账号？</span>
-					<a href="#">去注册</a>
+					<router-link to='register'>去注册</router-link>
 				</div>
 			</el-form-item>
 		</el-form>
@@ -30,7 +30,22 @@
 				},
 			}
 		},
+		mounted: function() {
+			this.$nextTick(function() {
+				this.init();
+			});
+		},
 		methods: {
+			init(){
+				//验证登录状态
+				this.$http.get('/home').then(res=>{
+					if(res.data.name){
+						this.$router.push('home')
+					}
+				}).catch(err=>{
+					console.log(err)
+				})
+			},
 			onSubmit() {
 				let loadingInstance = Loading.service();
 				var tip = '';

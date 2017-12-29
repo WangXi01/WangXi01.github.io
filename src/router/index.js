@@ -5,6 +5,7 @@ import Home from '@/views/Home'
 import WriteBlog from '@/views/WriteBlog'
 import BlogDetails from '@/views/BlogDetails'
 import Login from '@/views/Login'
+import Register from '@/views/Register'
 
 Vue.use(Router)
 
@@ -12,12 +13,12 @@ export default new Router({
 	routes: [
 		{
 			path: '/',
-			redirect: '/home'
+			redirect: '/home',
 		},
 		{
 			path: '/home',
 			name: 'home',
-			component: Home
+			component: Home,
 		},
 		{
 			path: '/writeBlog',
@@ -32,7 +33,12 @@ export default new Router({
 		{
 			path: '/login',
 			name: 'login',
-			component: Login
+			component: Login,
+		},
+		{
+			path: '/register',
+			name: 'register',
+			component: Register,
 		},
 	]
 })

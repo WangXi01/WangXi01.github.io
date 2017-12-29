@@ -20,6 +20,34 @@ Vue.config.productionTip = false
 Vue.use(VueQuillEditor, /* { default global options } */ )
 Vue.prototype.$http = axios
 Vue.use(ElementUI)
+
+var newVue = new Vue()
+
+router.beforeEach((to, from, next) => {
+	var toRouter = to.name;
+	var fromRouter = from.name;
+	console.log(toRouter,fromRouter)
+   	newVue.$http.get('/home').then(res=>{
+		if(res.data.name){
+			if(toRouter=='login'&&fromRouter){
+				next(fromRouter)
+			}else{
+				next()
+			}
+		}else{
+			if(toRouter=='register'){
+				next('register')
+			}else{
+				next('login')
+			}
+			
+		}
+	}).catch(err=>{
+		console.log(err)
+	})
+	next()
+})
+
 /* eslint-disable no-new */
 new Vue({
 	el: '#app',
