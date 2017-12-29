@@ -43,11 +43,13 @@
 							tip = '用户密码';
 						}
 						this.$message.error(tip + '不能为空');
+						this.$nextTick(() => { // 以服务的方式调用的 Loading 需要异步关闭
+							loadingInstance.close();
+						});
 						return false;
 					}
 				}
 				this.$http.post('/register', this.registerForm).then(res => {
-					console.log(res)
 					if(res.status == 200){
 						if(res.data.code == 304){
 							this.$message(res.data.msg)
@@ -56,11 +58,12 @@
 							this.$router.push('login')
 						}
 					}
-					loadingInstance.close();
 				}).catch(err => {
 					this.$message.error('网络异常!');
-					loadingInstance.close();
 					console.log(err);
+				});
+				this.$nextTick(() => { // 以服务的方式调用的 Loading 需要异步关闭
+					loadingInstance.close();
 				});
 			}
 		}
