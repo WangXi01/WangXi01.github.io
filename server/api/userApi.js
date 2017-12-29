@@ -94,8 +94,14 @@ router.get('/home', (req, res) => {
 		}
 		var user = req.session.user;
 		var name = user.name;
+		if(user.sign){
+			var sign = user.sign;
+		}else{
+			var sign = '天道酬勤';
+		}
 		var result = {
 			name:name,
+			sign:sign,
 			count:req.session['count'],
 		}
 		jsonWrite(res, result)

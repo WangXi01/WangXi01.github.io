@@ -43,7 +43,7 @@
 		data() {
 			return {
 				activeIndex: '1',
-				name:'',
+				name:'小明',
 			}
 		},
 		created: function () {
