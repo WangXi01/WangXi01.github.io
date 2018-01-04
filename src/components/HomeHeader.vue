@@ -39,7 +39,7 @@
 
 <script>
 	export default {
-		name: 'hello',
+		name: 'header',
 		data() {
 			return {
 				activeIndex: '1',
@@ -63,12 +63,12 @@
 					this.activeIndex = '3';
 				}
 				//验证登录状态
-				this.$http.get('/home').then(res=>{
+				this.$http.get(this.$host + 'home',{params: {name: this.getCookie("username")}}).then(res=>{
 					if(res.data.name){
 						this.name = res.data.name;
 						this.$notify({
 				          title: '欢迎！',
-				          message: '你好' + res.data.name + '，欢迎第' + res.data.count + '次来到我的博客。',
+				          message: '你好欢迎来到我的博客。',
 				          type: 'success',
 				          offset: 70,
 				        });

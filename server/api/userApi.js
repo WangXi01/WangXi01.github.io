@@ -19,6 +19,7 @@ var jsonWrite = function(res, ret) {
 	}
 };
 
+
 //post请求
 router.post('/writeBlog', (req, res) => {
 	var sql = $sql.title.add;
@@ -35,12 +36,13 @@ router.post('/writeBlog', (req, res) => {
 });
 
 router.post('/login', (req, res) => {
+	login_info = req.body.name;
 	var sql = `SELECT * FROM user WHERE name='${req.body.name}'`;
 	conn.query(sql, function(err, result) {
 		if(err) {
 			console.log(err);
 		}
-		if(result) {
+		if(result[0]) {
 			req.session.user = result[0];
 			jsonWrite(res, result);
 		}
@@ -54,16 +56,15 @@ router.post('/register', (req, res) => {
 		if(err) {
 			console.log(err);
 		}
-		if(result!='') {
-			console.log(result)
+		if(result != '') {
 			res.json({
-				code:'304',
+				code: '304',
 				msg: '用户名已存在',
 			});
-		}else{
+		} else {
 			var password = req.body.password;
 			var sql = $sql.user.add;
-			conn.query(sql,[username,password],function(err, result) {
+			conn.query(sql, [username, password], function(err, result) {
 				if(err) {
 					console.log(err);
 				}
@@ -75,7 +76,7 @@ router.post('/register', (req, res) => {
 	})
 })
 
-router.post('/loginOut',(req,res)=>{
+router.post('/loginOut', (req, res) => {
 	req.session.user = null;
 	req.session['count'] == null;
 	res.json({
@@ -86,27 +87,36 @@ router.post('/loginOut',(req,res)=>{
 
 //get请求
 router.get('/home', (req, res) => {
-	if(req.session.user) {
-		if(req.session['count'] == null) {
-			req.session['count'] = 1;
-		} else {
-			req.session['count']++
-		}
-		var user = req.session.user;
-		var name = user.name;
-		if(user.sign){
-			var sign = user.sign;
-		}else{
-			var sign = '天道酬勤';
-		}
-		var result = {
-			name:name,
-			sign:sign,
-			count:req.session['count'],
-		}
-		jsonWrite(res, result)
-	} else {
-		req.session['count'] = null;
+	if(req.query.name){
+		var sql = `SELECT * FROM user WHERE name='${req.query.name}'`;
+		conn.query(sql, function(err, result) {
+			if(err) {
+				console.log(err);
+			}
+			if(result[0]) {
+				req.session.user = result[0];
+				if(!req.session.count) {
+					req.session.count = 1;
+				} else {
+					req.session.count++
+				}
+				var user = req.session.user;
+				var name = user.name;
+				if(user.sign) {
+					var sign = user.sign;
+				} else {
+					var sign = '天道酬勤';
+				}
+				var result = {
+					name: name,
+					sign: sign,
+					count: req.session.count,
+				}
+				jsonWrite(res, result)
+			}
+		})
+	}else{
+		req.session.count = null;
 		res.send('你还没有登录，先登录下再试试！');
 	}
 })

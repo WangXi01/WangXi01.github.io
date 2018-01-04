@@ -1,7 +1,7 @@
 <template>
 	<div id="writeBlog">
 		<el-container>
-			<el-aside style="width: auto">
+			<el-aside>
 				<el-main>
 					<home-aside></home-aside>
 				</el-main>
@@ -110,8 +110,7 @@
 						return false;
 					}
 				}
-				
-				this.$http.post('/writeBlog', this.form).then(res => {
+				this.$http.post(this.$host + 'writeBlog', this.form).then(res => {
 					if(res.status == '200') {
 						this.$message('保存成功');
 						this.success = false;

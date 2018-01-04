@@ -29,12 +29,14 @@
 <script>
 	import { Loading } from 'element-ui';
 	export default {
+		name: 'content',
 		data() {
 			return {
 				title: [],  //博客信息
 				reversal: false,  //箭头变化
 				currentPage: 1,  //分页
 				title_len:1,  //博客总数
+				host:'http://39.108.168.151:3000/',
 			}
 		},
 		mounted: function() {
@@ -44,7 +46,7 @@
 		},
 		methods: {
 			getTitleList() {
-				this.$http.get('/title').then(res => {
+				this.$http.get(this.$host + 'title').then(res => {
 					this.title = res.data;
 					this.title_len = this.title.length;
 					this.title.forEach(function(index) {

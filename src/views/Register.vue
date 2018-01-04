@@ -49,7 +49,7 @@
 						return false;
 					}
 				}
-				this.$http.post('/register', this.registerForm).then(res => {
+				this.$http.post(this.$host + 'register', this.registerForm).then(res => {
 					if(res.status == 200){
 						if(res.data.code == 304){
 							this.$message(res.data.msg)

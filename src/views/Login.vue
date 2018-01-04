@@ -22,6 +22,7 @@
 <script>
 	import { Loading } from 'element-ui';
 	export default {
+		name: 'login',
 		data() {
 			return {
 				loginForm: {
@@ -64,7 +65,7 @@
 					}
 				}
 				
-				this.$http.post('/login', this.loginForm).then(res => {
+				this.$http.post(this.$host + 'login', this.loginForm).then(res => {
 					if(res.data == '') {
 						this.$message.error('账号不存在!');
 					} else {

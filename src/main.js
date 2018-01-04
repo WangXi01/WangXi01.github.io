@@ -16,10 +16,14 @@ import 'quill/dist/quill.core.css'
 import 'quill/dist/quill.snow.css'
 import 'quill/dist/quill.bubble.css'
 
+axios.defaults.baseURL = process.env.NODE_ENV === "production"?"http://39.108.168.151:3000/":""
 Vue.config.productionTip = false
 Vue.use(VueQuillEditor, /* { default global options } */ )
 Vue.prototype.$http = axios
 Vue.use(ElementUI)
+
+//Vue.prototype.$host = 'http://39.108.168.151:3000/';  //挂载一个ip,线上用
+Vue.prototype.$host = '/';
 
 var newVue = new Vue()
 
@@ -27,7 +31,17 @@ router.beforeEach((to, from, next) => {
 	var toRouter = to.name;
 	var fromRouter = from.name;
 	console.log(toRouter,fromRouter)
-   	newVue.$http.get('/home').then(res=>{
+	var getCookie = function (cname) {
+        var name = cname + "=";
+        var ca = document.cookie.split(';');
+        for (var i = 0; i < ca.length; i++) {
+            var c = ca[i];
+            while (c.charAt(0) == ' ') c = c.substring(1);
+            if (c.indexOf(name) != -1) return c.substring(name.length, c.length);
+        }
+        return "";
+    }
+   	newVue.$http.get(newVue.$host + 'home',{params: {name: getCookie("username")}}).then(res=>{
 		if(res.data.name){
 			if(toRouter=='login'&&fromRouter){
 				next(fromRouter)

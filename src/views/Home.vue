@@ -1,7 +1,7 @@
 <template>
 	<div id="home">
 		<el-container>
-			<el-aside style="width: auto">
+			<el-aside>
 				<el-main>
 					<home-aside></home-aside>
 				</el-main>

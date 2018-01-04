@@ -12,7 +12,7 @@ module.exports = {
     assetsPublicPath: '/',
     proxyTable: {
 			'/': {
-				target: 'http://127.0.0.1:3000/',//不要写localhost
+				target: 'http://39.108.168.151:3000/',//不要写localhost
 				changeOrigin: true,//true允许跨域
 				pathRewrite: {
 					'^/': '' //需要rewrite重写的, 如果在服务器端做了处理则可以不要这段
@@ -63,7 +63,7 @@ module.exports = {
     // Paths
     assetsRoot: path.resolve(__dirname, '../dist'),
     assetsSubDirectory: 'static',
-    assetsPublicPath: '/',
+    assetsPublicPath: './',
 
     /**
      * Source Maps

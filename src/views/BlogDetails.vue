@@ -41,6 +41,7 @@
 	import HomeAside from '@/components/HomeAside'
 	import HomeFooter from '@/components/HomeFooter'
 	export default{
+		name: 'blogdetails',
 		data() {
 	      	return { //博客信息
 		        name: '',
@@ -58,7 +59,7 @@
 		},
 		methods:{
 			getBlog(id){
-				this.$http.get("/getBlog", {params: {id: id}}
+				this.$http.get(this.$host + 'getBlog', {params: {id: id}}
 				).then(res => {  
 					if(res.data[0]==undefined){
 						this.err = true;
